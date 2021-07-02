@@ -1,0 +1,15 @@
+### OSX ###
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Basics
+__pycache__
+*.pid
+*.db
+
+# Pycharm
+.idea
+
+sinnbar/staticfiles
+

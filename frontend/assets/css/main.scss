@@ -1,0 +1,34 @@
+// Import Bulma's core
+@import "~bulma/sass/utilities/_all";
+$divider-margin-inner-size: 0px;
+$divider-color: #C6CCBD;
+
+@import "~@creativebulma/bulma-divider";
+
+
+
+// Font
+$family-primary: 'Josefin Sans', sans-serif;
+$family-secondary: 'Raleway', sans-serif;
+
+.is-cover {
+  object-fit: cover;
+}
+// start - footer fixed bottom
+.main {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+}
+.main-content {
+  flex: 1;
+}
+// end - footer fixed bottom
+@import "color";
+@import "grid";
+@import "navbar";
+@import "footer";
+@import "textblock";
+@import "~bulma";
+@import "~buefy/src/scss/buefy";
+

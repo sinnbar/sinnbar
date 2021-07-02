@@ -1,0 +1,17 @@
+@media screen and (min-width: 1024px) {
+  .navbar-start {
+  margin-left: auto;
+  margin-right: unset !important;
+  }
+  .navbar-brand {
+    width: 100%;
+    justify-content: space-between;
+    a {
+      margin-left: auto;
+      margin-right: auto;
+    }
+  }
+  .navbar {
+    flex-wrap: wrap;
+  }
+}
