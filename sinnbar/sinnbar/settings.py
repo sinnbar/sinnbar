@@ -117,7 +117,8 @@ SIMPLE_JWT = {
     "REFRESH_TOKEN_LIFETIME": timedelta(days=2),
 }
 
-CORS_ORIGIN_WHITELIST = ["http://localhost:3000", "http://127.0.0.1:3000", "https://vercel.com/sinnbar.app", "https://sinnbar*"]
+# CORS_ORIGIN_WHITELIST = ["http://localhost:3000", "http://127.0.0.1:3000", "https://vercel.com/sinnbar.app", "https://sinnbar*"]
+CORS_ORIGIN_ALLOW_ALL = True
 
 # Internationalization
 # https://docs.djangoproject.com/en/3.2/topics/i18n/
