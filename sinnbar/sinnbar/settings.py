@@ -27,7 +27,7 @@ SECRET_KEY = 'django-insecure-_avp2)gg)^4j-r40tshh^it$ty(7z_(rs$^qb*m4v7v^_qgx#e
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['https://sinnbar.herokuapp.com', 'localhost:8000']
 
 
 # Application definition
@@ -117,7 +117,7 @@ SIMPLE_JWT = {
     "REFRESH_TOKEN_LIFETIME": timedelta(days=2),
 }
 
-CORS_ORIGIN_WHITELIST = ["http://localhost:3000", "http://127.0.0.1:3000"]
+CORS_ORIGIN_WHITELIST = ["http://localhost:3000", "http://127.0.0.1:3000", "https://vercel.com/sinnbar.app", "https://sinnbar*"]
 
 # Internationalization
 # https://docs.djangoproject.com/en/3.2/topics/i18n/
