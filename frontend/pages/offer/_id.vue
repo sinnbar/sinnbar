@@ -63,7 +63,7 @@ export default {
   },
   async fetch() {
     this.offer = await this.$axios.$get(
-      `/api/v1/offers/${this.$route.params.id}`
+      `/api/v1/offers/${this.$route.params.id}/`
     )
     this.tours = await this.$axios.$get(
       `/api/v1/tours/?offer=${this.$route.params.id}`

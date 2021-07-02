@@ -42,7 +42,7 @@ export default {
     }
   },
   async fetch() {
-    this.offers = await this.$axios.$get('/api/v1/offers')
+    this.offers = await this.$axios.$get('/api/v1/offers/')
   },
 }
 </script>
