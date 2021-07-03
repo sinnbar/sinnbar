@@ -39,7 +39,6 @@
                   value="1"
                   required
                 >
-                  <>
                 </b-input>
               </b-field>
               <b-field label="Email">

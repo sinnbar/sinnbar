@@ -6,33 +6,43 @@
           <b-image src="/img/intro.png" ratio="9by9"></b-image>
         </div>
         <div class="column">
-          <p class="is-size-2 is-family-secondary m-2">{{ offer.title }}</p>
-          <p class="is-size-6 m-2">
+          <p class="is-size-2 is-family-secondary">{{ offer.title }}</p>
+          <p class="is-size-6">
             {{ offer.description }}
           </p>
-          <p v-if="offer.price == null" class="m-2 is-size-4">kostenfrei</p>
-          <p v-else class="m-2 is-size-4">{{ offer.price }} €</p>
-          <div class="columns">
-            <b-select
-              v-model="selectedTourId"
-              class="m-2"
-              placeholder="terminauswahl"
-              @change="getSelectedItem"
-            >
-              <option v-for="tour of tours" :key="tour.id" :value="tour">
-                {{ tour.date }}
-              </option>
-            </b-select>
+          <p v-if="offer.price == null" class="is-size-4 m-2">kostenfrei</p>
+          <p v-else class="is-size-4 m-2">{{ offer.price }} €</p>
+          <div class="columns mt-2">
+            <div class="column is-half">
+              <b-select v-model="selectedTourId" @input="getSelectedItem">
 
-            <b-button
-              type="m-2 is-primary is-light"
-              tag="router-link"
-              :to="{
-                name: 'buchen',
-                params: { offer: offer, tour: selectedTourId },
-              }"
-              >teilnehmen</b-button
-            >
+                <option v-for="tour of tours" :key="tour.id" :value="tour">
+                  {{ tour.date }}
+                </option>
+              </b-select>
+              <div class="columns">
+                <div class="column is-narrow">
+                  <p v-if="free_tour_places > 0">
+                    noch {{ free_tour_places }} freie Plätze
+                  </p>
+                  <p v-else-if="free_tour_places === 1">
+                    noch {{ free_tour_places }} freier Platz
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div class="column is-half">
+              <b-button
+                type="is-primary"
+                tag="router-link"
+                :to="{
+                  name: 'buchen',
+                  params: { offer: offer, tour: selectedTourId },
+                }"
+                >anmelden</b-button
+              >
+            </div>
           </div>
         </div>
       </div>
@@ -58,7 +68,8 @@ export default {
     return {
       offer: {},
       tours: [],
-      selectedTourId: {},
+      selectedTourId: 'Datum auswählen',
+      free_tour_places: 0,
     }
   },
   async fetch() {
@@ -70,9 +81,9 @@ export default {
     )
   },
   methods: {
-    getSelectedItem(myarg) {
-      // Just a regular js function that takes 1 arg
-      console.log('asdfasdf')
+    getSelectedItem() {
+      this.free_tour_places =
+        this.selectedTourId.max_participants - this.selectedTourId.participants
     },
   },
 }

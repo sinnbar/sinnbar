@@ -118,6 +118,7 @@ SIMPLE_JWT = {
 }
 
 # CORS_ORIGIN_WHITELIST = ["http://localhost:3000", "http://127.0.0.1:3000", "https://vercel.com/sinnbar.app", "https://sinnbar*"]
+# @TODO: IMPORTANT Restrict!
 CORS_ORIGIN_ALLOW_ALL = True
 
 # Internationalization
@@ -149,6 +150,8 @@ REST_FRAMEWORK = {
     "DEFAULT_RENDERER_CLASSES": ["rest_framework.renderers.JSONRenderer"],
     "TEST_REQUEST_DEFAULT_FORMAT": "json",
     'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend'],
+    'DATE_FORMAT': "%d.%m.%Y",
+
     #"DEFAULT_PERMISSION_CLASSES": ("rest_framework.permissions.DjangoModelPermissions",),
 }
 # Default primary key field type
