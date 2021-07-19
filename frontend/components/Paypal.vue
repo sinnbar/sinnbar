@@ -9,7 +9,7 @@ export default {
   mounted() {
     const script = document.createElement('script')
     script.src =
-      'https://www.paypal.com/sdk/js?client-id=AR1i4SEA5S9hqE07bVrE3adevPV72CyA9mssJUhnOlsMTxz7e8LXlNzQKVRvyewNcO0IqwRAucesIF4G'
+      'https://www.paypal.com/sdk/js?client-id=Afdfrvax7g8d1Hi0SSkQ2X04UgETMG0mRGy3i6MQIBH1T1iXAckZDbBH09n1YauECOrMFmwRCZfb2XQk'
     script.addEventListener('load', this.setLoaded)
     document.body.appendChild(script)
   },
