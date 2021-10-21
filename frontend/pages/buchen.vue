@@ -22,16 +22,16 @@
                 Bitte geben Sie Ihre information an, ya?
               </p>
               <b-field label="Vorname">
-                <b-input v-model="firstName" required></b-input>
+                <b-input v-model="bookingData.firstName" required></b-input>
               </b-field>
               <b-field label="Nachname">
-                <b-input v-model="lastName" required></b-input>
+                <b-input v-model="bookingData.lastName" required></b-input>
               </b-field>
               <b-field label="Freie Plätze">{{ free_tour_places }}</b-field>
 
               <b-field label="Personen">
                 <b-input
-                  v-model="amount"
+                  v-model="bookingData.amount"
                   placeholder="Für wie viel Personen möchten Sie buchen?"
                   type="number"
                   min="1"
@@ -43,19 +43,19 @@
               </b-field>
               <b-field label="Email">
                 <b-input
-                  v-model="email"
+                  v-model="bookingData.email"
                   placeholder="Email"
                   type="email"
                   required
                 ></b-input>
               </b-field>
               <b-field>
-                <b-checkbox v-model="newsletter"
+                <b-checkbox v-model="bookingData.newsletter"
                   >Ich möchte Newsletter</b-checkbox
                 >
               </b-field>
               <b-field>
-                <b-checkbox v-model="privacy" required
+                <b-checkbox v-model="bookingData.privacy" required
                   >Mir ist Datenschutz egal</b-checkbox
                 >
               </b-field>
@@ -64,7 +64,13 @@
         </b-step-item>
 
         <b-step-item
-          v-if="privacy && firstName && lastName && amount && email"
+          v-if="
+            bookingData.privacy &&
+            bookingData.firstName &&
+            bookingData.lastName &&
+            bookingData.amount &&
+            bookingData.email
+          "
           :step="2"
           label="Zusammenfassung"
           :clickable="isStepsClickable"
@@ -88,32 +94,32 @@
                       <p class="has-text-weight-semibold">Datum:</p>
                     </div>
                     <div class="column is-half">
-                      <p>{{ tour.date }}</p>
+                      <p>{{ bookingData.tour.date }}</p>
                     </div>
                     <div class="column is-half">
                       <p class="has-text-weight-semibold">Name:</p>
                     </div>
                     <div class="column is-half">
-                      <p>{{ lastName }} {{ firstName }}</p>
+                      <p>{{ bookingData.lastName }} {{ bookingData.firstName }}</p>
                     </div>
                     <div class="column is-half">
                       <p class="has-text-weight-semibold">Email:</p>
                     </div>
                     <div class="column is-half">
-                      <p>{{ email }}</p>
+                      <p>{{ bookingData.email }}</p>
                     </div>
                     <div class="column is-half">
                       <p class="has-text-weight-semibold">Personen:</p>
                     </div>
                     <div class="column is-half">
-                      <p>{{ amount }}</p>
+                      <p>{{ bookingData.amount }}</p>
                     </div>
                     <div class="column is-half">
                       <p class="has-text-weight-semibold">Preis:</p>
                     </div>
                     <div class="column is-half">
                       <p>
-                        {{ amount }} x {{ offer.price }} = 24 € (inkl. Mwst)
+                        {{ bookingData.amount }} x {{ offer.price }} = 24 € (inkl. Mwst)
                       </p>
                     </div>
                   </div>
@@ -124,7 +130,7 @@
         </b-step-item>
 
         <b-step-item
-          v-if="privacy"
+          v-if="bookingData.privacy"
           step="3"
           label="Bezahlung"
           :clickable="isStepsClickable"
@@ -134,7 +140,7 @@
             <div class="column is-half-desktop">
               <p class="m-5 has-text-centered">Hier wird Geld gelazt</p>
 
-              <Paypal />
+              <Paypal :bookingdata="bookingData"/>
             </div>
           </div>
         </b-step-item>
@@ -162,28 +168,39 @@ export default {
       nextIcon: 'chevron-right',
       labelPosition: 'bottom',
       mobileMode: 'minimalist',
+      bookingData: {
+        firstName: '',
+        lastName: '',
+        amount: 1,
+        email: '',
+        newsletter: false,
+        privacy: false,
+        tour: {},
 
-      firstName: '',
-      lastName: '',
-      amount: 1,
-      email: '',
-      newsletter: false,
-      privacy: false,
-
-      tour: {},
-      offer: {},
+      },
+      offer: {
+      },
 
       free_tour_places: 0,
     }
   },
+  watch: {
+    activeStep(newValue, oldValue) {
+      console.log(newValue)
+      if(oldValue===1 && newValue === 2){
+        this.bookingData.total_price = this.bookingData.amount * this.offer.price
+      }
+    },
+  },
   mounted() {
-    this.tour = this.$route.params.tour
+    this.bookingData.tour = this.$route.params.tour
     this.offer = this.$route.params.offer
-    if (!this.tour || !this.offer) {
+    console.log(this.offer);
+    if (!this.bookingData.tour || !this.offer) {
       this.$router.back()
     } else {
       this.free_tour_places =
-        this.tour.max_participants - this.tour.participants
+        this.bookingData.tour.max_participants - this.bookingData.tour.participants
     }
   },
 }

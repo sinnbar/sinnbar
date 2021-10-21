@@ -10,7 +10,7 @@
 /* ==========================================================================
    Base styles: opinionated defaults
    ========================================================================== */
-@import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@100&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@200&display=swap');
 
 html {
   color: #222;
@@ -306,4 +306,31 @@ textarea {
 
 h1 {
   font-size: 1.375em;
+}
+h2 {
+  font-size: 1.175em;
+}
+
+button, input {
+  border: 2px solid white;
+  border-radius: 4px;
+}
+
+.newsletter-input  {
+  width: 300px;
+  height: 30px;
+}
+#mc-embedded-subscribe{
+  padding: 5px 10px 5px 10px;
+}
+
+@media only screen and (max-width: 600px) {
+  .center {
+    width: 75%;
+    left: 12.5%;
+  }
+.newsletter-input {
+  width: 75%;
+  font-size: 75%;
+}
 }

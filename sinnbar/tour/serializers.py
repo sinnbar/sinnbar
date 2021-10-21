@@ -1,7 +1,8 @@
+from drf_writable_nested import WritableNestedModelSerializer
 from rest_framework import serializers
 from django.contrib.auth.models import User
 
-from .models import Provider, Offer, Tour, Reservation, Image
+from .models import Provider, Offer, Tour, Reservation, Image, Participant
 
 
 class UserSerializer(serializers.HyperlinkedModelSerializer):
@@ -39,11 +40,13 @@ class TourSerializer(serializers.ModelSerializer):
 
 class ParticipantSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Tour
+        model = Participant
         fields = ['id', 'first_name', 'last_name', 'email']
 
 
-class ReservationSerializer(serializers.ModelSerializer):
+class ReservationSerializer(WritableNestedModelSerializer):
+    participant = ParticipantSerializer()
+
     class Meta:
         model = Reservation
-        fields = ['id', 'tour', 'participant', 'number_participants']
+        fields = ['id', 'tour', 'participant', 'number_participants', 'total_price', 'order_id']

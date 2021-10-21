@@ -1,11 +1,26 @@
 <template>
   <div>
+    <p>{{ bookingdata }}</p>
     <div ref="paypal"></div>
   </div>
 </template>
 
 <script>
 export default {
+  // props: {
+  //   title: {
+  //     type: String,
+  //     required: false,
+  //     default: '',
+  //   },
+  // },
+  // eslint-disable-next-line vue/require-prop-types
+  props: ['bookingdata'],
+  data() {
+    return {
+      booking: {},
+    }
+  },
   mounted() {
     const script = document.createElement('script')
     script.src =
@@ -21,30 +36,54 @@ export default {
     closePaymentAmountModal() {
       this.isPaymentAmountModalVisible = false
     },
+    async redirect(order) {
+      const params = {
+        orderData: order,
+        bookingData: {
+          participant: {
+            first_name: this.$props.bookingdata.firstName,
+            last_name: this.$props.bookingdata.lastName,
+            email: this.$props.bookingdata.email,
+            newsletter: this.$props.bookingdata.newsletter,
+          },
+          number_participants: this.$props.bookingdata.amount,
+          tour: this.$props.bookingdata.tour.id,
+          total_price: this.$props.bookingdata.total_price,
+          order_id: order.orderID
+        },
+      }
+      this.reservation = await this.$axios.$post(
+        '/api/v1/reservations/',
+        params
+      )
+
+      await this.$router.push('/buchungsabschluss')
+    },
     setLoaded() {
       window.paypal
         .Buttons({
-          createOrder(data, actions) {
-            // This function sets up the details of the transaction, including the amount and line item details.
-            return actions.order.create({
-              purchase_units: [
-                {
-                  amount: {
-                    value: '0.01',
-                  },
-                },
-              ],
-            })
-          },
-          onApprove(data, actions) {
-            // This function captures the funds from the transaction.
-            return actions.order.capture().then(function (details) {
-              // This function shows a transaction success message to your buyer.
-              alert('Transaction completed by ' + details.payer.name.given_name)
-            })
-          },
+          createOrder: this.createOrder,
+          onApprove: this.onApprove,
         })
         .render(this.$refs.paypal)
+    },
+    createOrder(data, actions) {
+      // ...
+      return actions.order.create({
+        purchase_units: [
+          {
+            amount: {
+              value: '0.01',
+            },
+          },
+        ],
+      })
+      // console.error('PayPal', 'createOrder', arguments)
+    },
+    onApprove(data, actions) {
+      return actions.order.capture().then(() => {
+        this.redirect(data)
+      })
     },
   },
 }

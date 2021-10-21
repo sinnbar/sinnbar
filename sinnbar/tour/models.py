@@ -3,6 +3,10 @@ from django.db import models
 
 
 # Create your models here.
+from django.template.loader import render_to_string
+
+from tour.helpers import send_email_to_participant
+
 
 class Provider(models.Model):
     company = models.CharField(max_length=30)
@@ -49,15 +53,18 @@ class Participant(models.Model):
     first_name = models.CharField(max_length=50)
     last_name = models.CharField(max_length=50)
     email = models.EmailField()
+    newsletter = models.BooleanField(default=False)
 
     def __str__(self):
         return "%s %s, %s" % (self.first_name, self.last_name, self.email)
 
 
 class Reservation(models.Model):
+    order_id = models.CharField(max_length=50)
     tour = models.ForeignKey(Tour, on_delete=models.CASCADE, related_name='reservations')
     participant = models.ForeignKey(Participant, on_delete=models.CASCADE, related_name='reservations')
     number_participants = models.IntegerField(validators=[MinValueValidator(0)])
+    total_price = models.DecimalField(decimal_places=2, max_digits=7)
 
     def __str__(self):
         return "%s %s, %s" % (self.tour, self.participant, self.number_participants)
