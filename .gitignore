@@ -12,4 +12,5 @@ __pycache__
 .idea
 
 sinnbar/staticfiles
-
+.env
+.sqlite3
