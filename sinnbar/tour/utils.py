@@ -7,11 +7,13 @@ import sys
 
 from pytz import unicode
 
+from sinnbar.settings import PAYPAL_CLIENT_ID, PAYPAL_CLIENT_SECRET
+
 
 class PayPalClient:
     def __init__(self):
-        self.client_id = "Afdfrvax7g8d1Hi0SSkQ2X04UgETMG0mRGy3i6MQIBH1T1iXAckZDbBH09n1YauECOrMFmwRCZfb2XQk"
-        self.client_secret = "EBwULqDK1cFohIpslMS2Q9LWleCpfxvRw9OAPg3fyQ9-oY_pxnczlswOfn3MRQrrllog61Sk5470Sndw"
+        self.client_id = PAYPAL_CLIENT_ID
+        self.client_secret = PAYPAL_CLIENT_SECRET
 
         """Set up and return PayPal Python SDK environment with PayPal access credentials.
            This sample uses SandboxEnvironment. In production, use LiveEnvironment."""

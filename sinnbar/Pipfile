@@ -15,6 +15,7 @@ gunicorn = "*"
 django-heroku = "*"
 psycopg2 = "*"
 whitenoise = "*"
+drf-writable-nested = "*"
 
 [dev-packages]
 
