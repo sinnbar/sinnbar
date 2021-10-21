@@ -43,7 +43,6 @@ INSTALLED_APPS = [
     'rest_framework',
     'django_filters',
     'tour',
-    'drf_writable_nested',
 ]
 
 MIDDLEWARE = [
