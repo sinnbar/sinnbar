@@ -6,6 +6,7 @@ from rest_framework import viewsets, status
 from rest_framework.decorators import action
 from rest_framework.response import Response
 
+from sinnbar.settings import HOST
 from .helpers import send_email_to_participant
 from .models import Provider, Offer, Image, Tour, Participant, Reservation
 from .serializers import UserSerializer, ProviderSerializer, OfferSerializer, ImageSerializer, TourSerializer, \
@@ -69,6 +70,8 @@ class ReservationViewSet(viewsets.ModelViewSet):
             serializer.is_valid(raise_exception=True)
 
             reservation = serializer.save()
+            context = reservation.__dict__
+            context['HOST'] = HOST
             text_content = render_to_string('email/participant/confirmation_email.txt', reservation.__dict__)
             html_content = render_to_string('email/participant/confirmation_email.html', reservation.__dict__)
             send_email_to_participant('sinnbar | Bestätigung ihrer Buchung!', text_content, html_content,

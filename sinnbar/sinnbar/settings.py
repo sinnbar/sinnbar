@@ -28,12 +28,20 @@ environ.Env.read_env()
 SECRET_KEY = 'django-insecure-_avp2)gg)^4j-r40tshh^it$ty(7z_(rs$^qb*m4v7v^_qgx#e'
 PAYPAL_CLIENT_ID = os.environ.get('PAYPAL_CLIENT_ID', '')
 PAYPAL_CLIENT_SECRET = os.environ.get('PAYPAL_CLIENT_SECRET', '')
+EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER', '')
+EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD', '')
+HOST = os.environ.get('HOST', 'http://localhost:8000/')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
 ALLOWED_HOSTS = ['https://sinnbar.herokuapp.com', 'localhost:8000']
 
+#EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.ionos.de'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
 
 # Application definition
 
