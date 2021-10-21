@@ -77,8 +77,8 @@ class ReservationViewSet(viewsets.ModelViewSet):
             send_email_to_participant('sinnbar | Bestätigung ihrer Buchung!', text_content, html_content,
                                       reservation.participant.email)
 
-            #return Response(request.data, status=status.HTTP_201_CREATED, headers=headers)
-            return Response(status=status.HTTP_402_PAYMENT_REQUIRED, headers=headers)
+            return Response(request.data, status=status.HTTP_201_CREATED, headers=headers)
+            #return Response(status=status.HTTP_402_PAYMENT_REQUIRED, headers=headers)
         else:
             return Response(status=status.HTTP_402_PAYMENT_REQUIRED, headers=headers)
 

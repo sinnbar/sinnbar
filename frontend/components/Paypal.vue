@@ -1,6 +1,5 @@
 <template>
   <div>
-    <p>{{ bookingdata }}</p>
     <div ref="paypal"></div>
   </div>
 </template>
