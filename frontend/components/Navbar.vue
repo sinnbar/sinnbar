@@ -1,5 +1,5 @@
 <template>
-  <b-navbar class="center container column is-10">
+  <b-navbar class="center container column is-10 pl-6 pr-6">
     <template #brand>
       <b-navbar-item tag="router-link" :to="{ path: '/' }">
         <p class="is-size-4">sinnbar</p>

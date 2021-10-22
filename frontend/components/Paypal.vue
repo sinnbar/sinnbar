@@ -6,14 +6,6 @@
 
 <script>
 export default {
-  // props: {
-  //   title: {
-  //     type: String,
-  //     required: false,
-  //     default: '',
-  //   },
-  // },
-  // eslint-disable-next-line vue/require-prop-types
   props: ['bookingdata'],
   data() {
     return {
@@ -72,7 +64,8 @@ export default {
         purchase_units: [
           {
             amount: {
-              value: '0.01',
+              value: this.$props.bookingdata.total_price,
+              currency: 'EUR',
             },
           },
         ],

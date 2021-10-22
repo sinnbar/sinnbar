@@ -5,8 +5,6 @@ $divider-color: #C6CCBD;
 
 @import "~@creativebulma/bulma-divider";
 
-
-
 // Font
 $family-primary: 'Josefin Sans', sans-serif;
 $family-secondary: 'Raleway', sans-serif;
@@ -23,6 +21,7 @@ $family-secondary: 'Raleway', sans-serif;
 .main-content {
   flex: 1;
 }
+
 // end - footer fixed bottom
 @import "color";
 @import "grid";

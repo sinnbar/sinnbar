@@ -25,7 +25,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 environ.Env.read_env()
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-_avp2)gg)^4j-r40tshh^it$ty(7z_(rs$^qb*m4v7v^_qgx#e'
+SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', '')
 PAYPAL_CLIENT_ID = os.environ.get('PAYPAL_CLIENT_ID', '')
 PAYPAL_CLIENT_SECRET = os.environ.get('PAYPAL_CLIENT_SECRET', '')
 EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER', '')

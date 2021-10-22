@@ -100,7 +100,9 @@
                       <p class="has-text-weight-semibold">Name:</p>
                     </div>
                     <div class="column is-half">
-                      <p>{{ bookingData.lastName }} {{ bookingData.firstName }}</p>
+                      <p>
+                        {{ bookingData.lastName }} {{ bookingData.firstName }}
+                      </p>
                     </div>
                     <div class="column is-half">
                       <p class="has-text-weight-semibold">Email:</p>
@@ -119,7 +121,8 @@
                     </div>
                     <div class="column is-half">
                       <p>
-                        {{ bookingData.amount }} x {{ offer.price }} = 24 € (inkl. Mwst)
+                        {{ bookingData.amount }} x {{ offer.price }} =
+                        {{ bookingData.total_price }} € (inkl. Mwst)
                       </p>
                     </div>
                   </div>
@@ -140,7 +143,7 @@
             <div class="column is-half-desktop">
               <p class="m-5 has-text-centered">Hier wird Geld gelazt</p>
 
-              <Paypal :bookingdata="bookingData"/>
+              <Paypal :bookingdata="bookingData" />
             </div>
           </div>
         </b-step-item>
@@ -175,32 +178,38 @@ export default {
         email: '',
         newsletter: false,
         privacy: false,
-        tour: {},
-
+        tour: {
+          max_participants: undefined,
+          participants: undefined,
+        },
+        total_price: 0,
       },
       offer: {
+        price: 0,
       },
 
       free_tour_places: 0,
     }
   },
   watch: {
-    activeStep(newValue, oldValue) {
-      console.log(newValue)
-      if(oldValue===1 && newValue === 2){
-        this.bookingData.total_price = this.bookingData.amount * this.offer.price
-      }
+    activeStep() {
+      this.calculate_total_price()
+    },
+  },
+  methods: {
+    calculate_total_price() {
+      this.bookingData.total_price = this.bookingData.amount * this.offer.price
     },
   },
   mounted() {
     this.bookingData.tour = this.$route.params.tour
     this.offer = this.$route.params.offer
-    console.log(this.offer);
     if (!this.bookingData.tour || !this.offer) {
       this.$router.back()
     } else {
       this.free_tour_places =
-        this.bookingData.tour.max_participants - this.bookingData.tour.participants
+        this.bookingData.tour.max_participants -
+        this.bookingData.tour.participants
     }
   },
 }

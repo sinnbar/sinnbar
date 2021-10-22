@@ -6,22 +6,21 @@
           <b-image src="/img/intro.png" ratio="9by9"></b-image>
         </div>
         <div class="column">
-          <p class="is-size-2 is-family-secondary">{{ offer.title }}</p>
-          <p class="is-size-6">
+          <p class="is-size-3 is-family-secondary">{{ offer.title }}</p>
+          <p class="is-size-6 mt-1">
             {{ offer.description }}
           </p>
-          <p v-if="offer.price == null" class="is-size-4 m-2">kostenfrei</p>
-          <p v-else class="is-size-4 m-2">{{ offer.price }} €</p>
+          <p v-if="offer.price == null" class="is-size-4 mt-2">kostenfrei</p>
+          <p v-else class="is-size-4 mt-2">{{ offer.price }} €</p>
           <div class="columns mt-2">
-            <div class="column is-half">
-              <b-select v-model="selectedTourId" @input="getSelectedItem">
-
+            <div class="column">
+              <b-select placeholder="Datum auswählen" v-model="selectedTourId" @input="getSelectedItem">
                 <option v-for="tour of tours" :key="tour.id" :value="tour">
                   {{ tour.date }}
                 </option>
               </b-select>
               <div class="columns">
-                <div class="column is-narrow">
+                <div class="column is-narrow ml-1 ">
                   <p v-if="free_tour_places > 0">
                     noch {{ free_tour_places }} freie Plätze
                   </p>
@@ -31,8 +30,7 @@
                 </div>
               </div>
             </div>
-
-            <div class="column is-half">
+            <div class="column">
               <b-button
                 type="is-primary"
                 tag="router-link"
@@ -40,13 +38,12 @@
                   name: 'buchen',
                   params: { offer: offer, tour: selectedTourId },
                 }"
-                >anmelden</b-button
+                >jetzt buchen</b-button
               >
             </div>
           </div>
         </div>
       </div>
-      <div class="column">
         <p class="is-size-4 is-family-secondary m-2">über die anbietenden</p>
         <p class="m-2">
           Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean
@@ -55,7 +52,6 @@
           felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla
           consequat massa qu aliquet nec, vulputate mpteger tincidunt.
         </p>
-      </div>
     </section>
 
     <OfferGrid />
@@ -68,7 +64,7 @@ export default {
     return {
       offer: {},
       tours: [],
-      selectedTourId: 'Datum auswählen',
+      selectedTourId: null,
       free_tour_places: 0,
     }
   },
