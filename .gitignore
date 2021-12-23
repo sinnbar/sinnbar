@@ -14,3 +14,7 @@ __pycache__
 sinnbar/staticfiles
 .env
 .sqlite3
+
+/node_modules
+
+/django-env
